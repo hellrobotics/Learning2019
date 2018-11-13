@@ -15,6 +15,10 @@ public class RobotMap {
 	//CAN
     
     //public static final int CANNUMBER = 0;
+    public static final int LEFTMOTOR1 = 1;
+    public static final int LEFTMOTOR2 = 2;
+    public static final int RIGHTMOTOR1 = 3;
+    public static final int RIGHTMOTOR2 = 4;
 	
     //DIO
     
