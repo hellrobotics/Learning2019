@@ -4,6 +4,7 @@ import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj.Encoder;
 
 import src.main.java.frc.robot.*;
 
@@ -39,7 +40,8 @@ public class DriveTrain extends Subsystem {
 	DifferentialDrive Drive = new DifferentialDrive(m_right, m_left);
 	//DifferentialDrive Drive = new DifferentialDrive(m_left,m_right);
 	
-	
+	Encoder sampleEncoder = new Encoder(1, 2); // , false, Encoder.EncodingType.k4X
+
     // Put methods for controlling this subsystem
     // here. Call these from Commands.
 	
@@ -69,7 +71,6 @@ public class DriveTrain extends Subsystem {
 	public void Arcade(double moveValue, double rotateValue, double maxSpeed) {
 		double move = moveValue * maxSpeed;
         double turn = rotateValue * maxSpeed;
-        System.out.println("Yee");
 		
 		Drive.arcadeDrive(move, turn, true);	
 		
@@ -108,6 +109,11 @@ public class DriveTrain extends Subsystem {
 
 	public int getPositionRightNu() {
 		return right2.getSelectedSensorVelocity(0);
+	}
+
+	public int getTestEncoderPos() {
+		
+    	return sampleEncoder.get();
 	}
 	
 }

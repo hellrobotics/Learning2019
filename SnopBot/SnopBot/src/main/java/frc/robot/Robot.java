@@ -16,7 +16,6 @@ import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import src.main.java.frc.robot.commands.ArcadeDrive;
-import src.main.java.frc.robot.commands.TestEncoder;
 
 
 /**
@@ -29,31 +28,25 @@ public class Robot extends IterativeRobot {
   private Joystick m_rightStick;
 
   Command arcadeDrive = new ArcadeDrive();
-  Command testEncoder = new TestEncoder();
 
   @Override
   public void robotInit() {
-    SmartDashboard.putNumber("TestEncoderNumber", 0);
-    SmartDashboard.putNumber("TestEncoderResult", 0);
-    System.out.println("Yeestart");
+  
 
   }
 
   @Override
   public void teleopInit() {
-    System.out.println("Yeespacito");
     arcadeDrive.start();
   }
 
   @Override
   public void teleopPeriodic() {
     Scheduler.getInstance().run();
-    testEncoder.start();
     arcadeDrive.start();
   }
 
   public void disabledPeriodic() {
     Scheduler.getInstance().run();
-    testEncoder.start();
   }
 }
