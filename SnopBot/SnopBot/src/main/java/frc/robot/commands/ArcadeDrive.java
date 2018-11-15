@@ -33,7 +33,7 @@ public class ArcadeDrive extends Command {
 
         System.out.println("Yeet");
     	
-    	ssTrain.Arcade(oi.stick.getY(), oi.stick.getX(), 0.5);
+    	ssTrain.Arcade(oi.stick.getY(), oi.stick.getX(), 0.5); //Kjører Arcade() i DriveTrain subsystemet
     	
     }
 
