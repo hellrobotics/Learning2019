@@ -9,6 +9,8 @@ package src.main.java.frc.robot;
 public class RobotMap {
 	
     //PWM
+    public static final int ARMSTAGE1 = 0;
+    public static final int ARMSTAGE2 = 1;
     
 	//public static final int PWMNUMBER = 0;
 	

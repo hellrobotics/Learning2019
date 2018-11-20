@@ -16,6 +16,7 @@ import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import src.main.java.frc.robot.commands.ArcadeDrive;
+import src.main.java.frc.robot.commands.ArmControl;
 
 
 /**
@@ -28,6 +29,7 @@ public class Robot extends IterativeRobot {
   private Joystick m_rightStick;
 
   Command arcadeDrive = new ArcadeDrive();
+  Command armControl = new ArmControl();
 
   @Override
   public void robotInit() {
@@ -38,6 +40,7 @@ public class Robot extends IterativeRobot {
   @Override
   public void teleopInit() {
     arcadeDrive.start();
+    armControl.start();
   }
 
   @Override

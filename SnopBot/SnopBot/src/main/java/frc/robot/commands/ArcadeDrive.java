@@ -32,7 +32,7 @@ public class ArcadeDrive extends Command {
     protected void execute() {
     	
     	ssTrain.Arcade(oi.stick.getY(), oi.stick.getX(), 1); //Kjører Arcade() i DriveTrain subsystemet
-    	System.out.println(ssTrain.getTestEncoderPos() + " pos");
+    	
     }
 
     // Make this return true when this Command no longer needs to run execute()
