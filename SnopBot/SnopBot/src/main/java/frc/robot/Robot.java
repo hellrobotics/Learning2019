@@ -34,7 +34,8 @@ public class Robot extends IterativeRobot {
   @Override
   public void robotInit() {
   
-
+    SmartDashboard.putNumber("armX", 0.0);
+    SmartDashboard.putNumber("armY", 0.0);
   }
 
   @Override

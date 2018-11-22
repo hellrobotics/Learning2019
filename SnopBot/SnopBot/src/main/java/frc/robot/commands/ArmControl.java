@@ -10,6 +10,7 @@ package src.main.java.frc.robot.commands;
 import edu.wpi.first.wpilibj.command.Command;
 import src.main.java.frc.robot.OI;
 import src.main.java.frc.robot.subsystems.TwoStageArm;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class ArmControl extends Command {
 
@@ -32,8 +33,11 @@ public class ArmControl extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    ssArm.MoveStage2((oi.stick.getRawAxis(3)+oi.stick.getRawAxis(2))*0.5);
-    ssArm.MoveStage1(oi.stick.getRawAxis(2)*0.5);
+    double armX = (double)SmartDashboard.getNumber("armX", 0.0);
+    double armY = (double)SmartDashboard.getNumber("armY", 0.0);
+
+    ssArm.MoveStage2((oi.stick.getRawAxis(3)+oi.stick.getRawAxis(2))*0.3, armX, armY);
+    ssArm.MoveStage1(oi.stick.getRawAxis(2)*0.3);
   }
 
   // Make this return true when this Command no longer needs to run execute()
