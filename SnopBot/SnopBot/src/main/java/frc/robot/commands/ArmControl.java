@@ -35,9 +35,15 @@ public class ArmControl extends Command {
   protected void execute() {
     double armX = (double)SmartDashboard.getNumber("armX", 0.0);
     double armY = (double)SmartDashboard.getNumber("armY", 0.0);
-
-    ssArm.MoveStage2((oi.stick.getRawAxis(3)+oi.stick.getRawAxis(2))*0.3, armX, armY);
+    
+    ssArm.MoveToCoord(armX, armY);
+    /*
+    ssArm.MoveStage2((oi.stick.getRawAxis(3)+oi.stick.getRawAxis(2))*0.3);
     ssArm.MoveStage1(oi.stick.getRawAxis(2)*0.3);
+    */
+
+
+    System.out.println(ssArm.getStage2EncoderPos() + " pos = " + (double)ssArm.getStage2EncoderPos()*ssArm.encToDeg + " should be: " + (int)Math.round(ssArm.calculateAngle2(armX,armY)/ssArm.encToDeg) + " pos = " + ssArm.calculateAngle2(armX,armY));
   }
 
   // Make this return true when this Command no longer needs to run execute()

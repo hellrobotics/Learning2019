@@ -23,7 +23,12 @@ public class RobotMap {
     public static final int RIGHTMOTOR2 = 4;
 	
     //DIO
-    
+
+    public static final int ARM1ENCODER1 = 0;
+    public static final int ARM1ENCODER2 = 1;
+    public static final int ARM2ENCODER1 = 2;
+    public static final int ARM2ENCODER2 = 3;
+
 	//public static final int DIONUMBER = 0;
 	
 	
