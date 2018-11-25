@@ -16,6 +16,19 @@ public class ArmControl extends Command {
 
   private TwoStageArm ssArm;
   private OI oi;
+
+  double armX = 20.0;
+  double armY = 40.0;
+
+  double rMin = 10.0;
+  double rMax = 80.0;
+  double xMin = 5.0;
+  double xMax = 80.0;
+  double yMin = 5.0;
+  double yMax = 80.0;
+
+  int Enc1 = 0;
+  int Enc2 = 0;
   
   public ArmControl() {
     // Use requires() here to declare subsystem dependencies
@@ -33,19 +46,57 @@ public class ArmControl extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    double armX = (double)SmartDashboard.getNumber("armX", 0.0);
-    double armY = (double)SmartDashboard.getNumber("armY", 0.0);
+
+    if (oi.stick.getRawButton(3)){
+      Enc1 = 70;
+      Enc2 = 100;
+    } else if (oi.stick.getRawButton(2)) {
+      Enc1 = 0;
+      Enc2 = 0;
+    }
+    ssArm.MoveToEnc(Enc1, Enc2);
     
-    ssArm.MoveToCoord(armX, armY);
     /*
     ssArm.MoveStage2((oi.stick.getRawAxis(3)+oi.stick.getRawAxis(2))*0.3);
     ssArm.MoveStage1(oi.stick.getRawAxis(2)*0.3);
     */
 
 
-    System.out.println(ssArm.getStage2EncoderPos() + " pos = " + (double)ssArm.getStage2EncoderPos()*ssArm.encToDeg + " should be: " + (int)Math.round(ssArm.calculateAngle2(armX,armY)/ssArm.encToDeg) + " pos = " + ssArm.calculateAngle2(armX,armY));
+    //System.out.println(ssArm.getStage2EncoderPos() + " pos = " + (double)ssArm.getStage2EncoderPos()*ssArm.encToDeg + " should be: " + (int)Math.round(ssArm.calculateAngle2(armX,armY)/ssArm.encToDeg) + " pos = " + ssArm.calculateAngle2(armX,armY));
   }
 
+  void CoordMove () {
+    double xIn = oi.stick.getRawAxis(2);
+    double yIn = oi.stick.getRawAxis(3)*-1;
+
+    if (xIn < 0.1 && xIn > -0.1) {
+      xIn = 0;
+    } else if (xIn < 0 && Math.sqrt(armX*armX+armY*armY) <= rMin) {
+      xIn = 0;
+    } else if (xIn < 0 && armX <= xMin) {
+      xIn = 0;
+    } else if (xIn > 0 && Math.sqrt(armX*armX+armY*armY) >= rMax) {
+      xIn = 0;
+    } 
+
+    if (yIn < 0.1 && yIn > -0.1) {
+      yIn = 0;
+    } else if (yIn < 0 && Math.sqrt(armX*armX+armY*armY) <= rMin) {
+      yIn = 0;
+    } else if (yIn < 0 && armY <= yMin) {
+      yIn = 0;
+    } else if (yIn > 0 && Math.sqrt(armX*armX+armY*armY) >= rMax) {
+      yIn = 0;
+    } 
+
+    armX += xIn;
+    armY += yIn;
+
+    ssArm.MoveToCoord(armX, armY);
+
+    SmartDashboard.putNumber("armX", armX);
+    SmartDashboard.putNumber("armY", armY);
+  }
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
