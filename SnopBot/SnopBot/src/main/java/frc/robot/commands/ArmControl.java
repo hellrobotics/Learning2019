@@ -10,11 +10,13 @@ package src.main.java.frc.robot.commands;
 import edu.wpi.first.wpilibj.command.Command;
 import src.main.java.frc.robot.OI;
 import src.main.java.frc.robot.subsystems.TwoStageArm;
+import src.main.java.frc.robot.subsystems.CandyEngine;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class ArmControl extends Command {
 
   private TwoStageArm ssArm;
+  private CandyEngine ssCandy;
   private OI oi;
 
   double armX = 20.0;
@@ -34,7 +36,9 @@ public class ArmControl extends Command {
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
     ssArm = TwoStageArm.getInstance();
-    	requires(ssArm);
+    requires(ssArm);
+    ssCandy = CandyEngine.getInstance();
+    requires(ssCandy);
     	oi = OI.getInstance();
   }
 
@@ -47,15 +51,23 @@ public class ArmControl extends Command {
   @Override
   protected void execute() {
 
-    if (oi.stick.getRawButton(3)){
-      Enc1 = 70;
-      Enc2 = 100;
-    } else if (oi.stick.getRawButton(2)) {
-      Enc1 = 0;
-      Enc2 = 0;
-    }
-    ssArm.MoveToEnc(Enc1, Enc2);
     
+    if (oi.stick.getRawButton(3)){
+      ssCandy.RunFeed(0.5);
+    } else if (oi.stick.getRawButton(4)) {
+      ssCandy.RunFeed(-0.5);
+    } else {
+      ssCandy.RunFeed(0.0);
+    }
+
+    if (oi.stick.getRawButton(1)){
+      ssCandy.RunHatch(60.0);
+    } else if (oi.stick.getRawButton(2)) {
+      ssCandy.RunHatch(20.0);
+    }
+    //ssArm.MoveToEnc(Enc1, Enc2);
+    
+    CoordMove();
     /*
     ssArm.MoveStage2((oi.stick.getRawAxis(3)+oi.stick.getRawAxis(2))*0.3);
     ssArm.MoveStage1(oi.stick.getRawAxis(2)*0.3);

@@ -84,7 +84,7 @@ public class TwoStageArm extends Subsystem {
   }
 
   public void MoveToCoord (double x, double y) {
-    double pk = 0.05/5;
+    double pk = 0.05/2;
     double pk1 = 0.01/2;
     // Calculating target for stage 1
     int stage1Target = (int)Math.round(calculateAngle1(x,y)/encToDeg1);
@@ -103,9 +103,9 @@ public class TwoStageArm extends Subsystem {
     // Calculating target for stage 2
     int stage2Target;
     if (calculateAngle2(x,y)-15.0 < 0) {
-      stage2Target = (int)Math.round((180.0-calculateAngle1(x,y))/encToDeg)*-1;
+      stage2Target = 0 + (int)Math.round(calculateAngle1(x,y)-180.0);
     } else {
-      stage2Target = (int)Math.round((calculateAngle2(x,y)+180.0-calculateAngle1(x,y))/encToDeg)*-1;
+      stage2Target = (int)Math.round((calculateAngle2(x,y)+(calculateAngle1(x,y)-180.0))/encToDeg);
     }
     int stage2Pos = getStage2EncoderPos();
 
